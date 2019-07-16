@@ -6,17 +6,16 @@ import BarChart from '../Components/BarChart';
 import fetch from 'node-fetch';
 import TripsTable from '../Components/TripsTable';
 
-export default function Dashboard () {
+export default function Dashboard() {
   const [state, setState] = useState({});
   const [trips, setTrips] = useState([]);
-
 
   useEffect(() => {
     fetch('/api/stats')
       .then(response => response.json())
       .then(res => res.data)
       .then(data => setState(data))
-      .catch(error => console.error("/stat error", error));
+      .catch(error => console.error('/stat error', error));
   }, []);
 
   useEffect(() => {
@@ -24,9 +23,8 @@ export default function Dashboard () {
       .then(response => response.json())
       .then(res => res.data)
       .then(data => setTrips(data))
-      .catch(error => console.error("/trips error", error))
+      .catch(error => console.error('/trips error', error));
   }, []);
-
 
   const {
     male,
@@ -46,10 +44,7 @@ export default function Dashboard () {
             <PieChartSex male={male} female={female} />
           </section>
           <section className="pie">
-            <PieChartTrips
-              isCash={noOfCashTrips}
-              isntCash={noOfNonCashTrips}
-            />
+            <PieChartTrips isCash={noOfCashTrips} isntCash={noOfNonCashTrips} />
           </section>
           <section className="pie">
             <BarChart

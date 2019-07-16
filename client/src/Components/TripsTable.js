@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { MDBDataTable, MDBIcon } from 'mdbreact';
 
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -49,31 +49,24 @@ export default function TripsTable(props) {
         driverName: '',
         username: '',
         billed: '',
-      }
+      },
     ],
   };
 
-  function handleClick(e) {
-    e.preventDefault();
-    // e.persist()
-    // setClickedStatus(!clickedStatus);
-  }
-
   props.allTrips.map((trip, index) => {
-    data.rows[index] = {
+    return (data.rows[index] = {
       name: (
         <MDBIcon
           icon="info"
           trip={trip}
           style={{ display: 'flex', justifyContent: 'center' }}
-          onClick={handleClick}
         />
       ),
       tripId: trip['tripID'],
       driverName: trip['driverID'],
       username: trip.user.name,
       billed: `$${trip['billedAmount']}`,
-    };
+    });
   });
 
   return !clickedStatus ? (
@@ -84,6 +77,7 @@ export default function TripsTable(props) {
       bordered
       small
       data={data}
+      onClick={() => setClickedStatus(!clickedStatus)}
     />
   ) : (
     <div className="card text-cener" style={{ height: '100%' }}>
@@ -187,7 +181,7 @@ export default function TripsTable(props) {
           <button
             href="#"
             className="btn btn-secondary btn-sm"
-            onClick={handleClick}
+            onClick={() => setClickedStatus(!clickedStatus)}
           >
             close
           </button>
